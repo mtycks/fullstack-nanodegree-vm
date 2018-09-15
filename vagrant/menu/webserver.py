@@ -12,6 +12,7 @@ from sqlalchemy.orm import sessionmaker
 # Create session and connect to # DB
 engine = create_engine('sqlite:///restaurantmenu.db')
 Base.metadata.bind = create_engine
+
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
