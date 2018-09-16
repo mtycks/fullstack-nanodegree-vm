@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, jsonify, url_for
+from flask import Flask, render_template, request, redirect, jsonify, url_for, flash
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, Restaurant, MenuItem
@@ -152,6 +152,7 @@ def editMenuItem(restaurant_id, menu_id):
         session.add(item)
         session.commit()
         session.close()
+        flash('Menu item has been updated.')
         return redirect(url_for('showMenu', restaurant_id = restaurant_id ))
 
     else:
@@ -180,5 +181,6 @@ if __name__ == '__main__':
     # app.debug = True triggers a server reboot of sorts
     # if a change in the code is detected
     # as well as providing a debugger on the page
+    app.secret_key = 'super_secret_key'
     app.debug = True
     app.run(host = '0.0.0.0', port = 5000)
