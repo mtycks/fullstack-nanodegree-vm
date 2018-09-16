@@ -69,7 +69,7 @@ def deleteRestaurant(restaurant_id):
 
 
 @app.route('/restaurant/<int:restaurant_id>/', methods=['GET', 'POST'])
-@app.route('/restaurant/<int:restaurant_id>/menu', methods=['GET', 'POST'])
+@app.route('/restaurant/<int:restaurant_id>/menu/', methods=['GET', 'POST'])
 def showMenu(restaurant_id):
 
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
@@ -132,10 +132,20 @@ def editMenuItem(restaurant_id, menu_id):
         return render_template('editMenuItem.html', item = item, restaurant = restaurant)
 
 
-@app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/delete', methods=['GET', 'POST'])
+@app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/delete/', methods=['GET', 'POST'])
 def deleteMenuItem(restaurant_id, menu_id):
-    # return "This page will be for deleting menu item {} in restaurant {}".format(menu_id, restaurant_id)
-    return render_template('deleteMenuItem.html', item = item, restaurant = restaurant)
+
+    restaurant = session.query(Restaurant).filter_by(id = restaurant_id).one()
+    item = session.query(MenuItem).filter_by(id = menu_id).one()
+    session.close()
+
+    if request.method == 'POST':
+        session.delete(item)
+        session.commit()
+        session.close()
+        return redirect(url_for('showMenu', restaurant_id = restaurant_id ))
+    else:
+        return render_template('deleteMenuItem.html', item = item, restaurant = restaurant)
 
 
 # If you're executing me from the Python interpreter, do this:

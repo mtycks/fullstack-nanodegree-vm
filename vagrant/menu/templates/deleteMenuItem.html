@@ -16,10 +16,10 @@
     <div class="col-md-6 offset-md-3">
       <h1>Delete {{item.name}} from {{restaurant.name}}?</h1>
 
-      <form action="#" method="post" enctype="multipart/form-data" class="form">
+      <form action="{{url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id = item.id)}}" method="post" enctype="multipart/form-data" class="form">
         <div class="form-group">
           <button type="submit" class="btn btn-primary mt-2" value="delete">Yep, delete!</button>
-          <button class="btn btn-info mt-2">Cancel</button>
+          <a href="{{url_for('showMenu', restaurant_id = restaurant.id)}}" class="btn btn-info mt-2">Cancel</a>
         </div>
       </form>
 
