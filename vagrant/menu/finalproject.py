@@ -13,11 +13,15 @@ app = Flask(__name__)
 
 
 @app.route('/')
-@app.route('/restaurants')
+@app.route('/restaurants/')
 def showRestaurants():
     restaurants = session.query(Restaurant).order_by(Restaurant.name).all()
     session.close()
     return render_template('restaurants.html', restaurants = restaurants)
+
+@app.route('/restaurant/')
+def redirectRestaurant():
+    return redirect(url_for('showRestaurants'))
 
 @app.route('/restaurant/new', methods=['GET', 'POST'])
 def newRestaurant():
