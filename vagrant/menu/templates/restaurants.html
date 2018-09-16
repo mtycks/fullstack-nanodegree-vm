@@ -11,13 +11,27 @@
 <body>
 
 <div class="container">
-  <h1>Restaurants</h1>
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
 
-  <ul>
-  {% for restaurant in restaurants %}
-    <li>{{restaurant.name}}</li>
-  {% endfor %}
-  </ul>
+      <h1>Restaurants</h1>
+
+      <table class="table table-striped">
+
+        {% for restaurant in restaurants %}
+        <tr>
+          <td><a href="/restaurant/{{restaurant.id}}/menu">{{restaurant.name}}</a></td>
+          <td>
+            <a href="/restaurant/{{restaurant.id}}/edit" class="btn btn-primary">Edit</a>
+            <a href="/restaurant/{{restaurant.id}}/delete" class="btn btn-danger">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+
+      </table>
+
+    </div>
+  </div>
 
 </div>
 
