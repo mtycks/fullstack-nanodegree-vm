@@ -27,17 +27,23 @@
           </tr>
         </thead>
         <tbody>
-          {% for item in items %}
+          {% if items %}
+            {% for item in items %}
+              <tr>
+                <td width="150">{{item.name}}</td>
+                <td>{{item.description}}</td>
+                <td>{{item.price}}</td>
+                <td width="150">
+                  <a href="/restaurant/{{restaurant.id}}/menu/{{item.id}}/edit/" class="btn btn-primary btn-sm">Edit</a>
+                  <a href="/restaurant/{{restaurant.id}}/menu/{{item.id}}/delete/" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+              </tr>
+            {% endfor %}
+          {% else %}
             <tr>
-              <td width="150">{{item.name}}</td>
-              <td>{{item.description}}</td>
-              <td>{{item.price}}</td>
-              <td width="150">
-                <a href="/restaurant/{{restaurant.id}}/menu/{{item.id}}/edit/" class="btn btn-primary btn-sm">Edit</a>
-                <a href="/restaurant/{{restaurant.id}}/menu/{{item.id}}/delete/" class="btn btn-danger btn-sm">Delete</a>
-              </td>
+              <td colspan="4"><em>No menu items</em></td>
             </tr>
-          {% endfor %}
+          {% endif %}
         </tbody>
 
       </table>
