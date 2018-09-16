@@ -15,7 +15,6 @@
   <div class="row">
     <div class="col-md-6 offset-md-3">
       <h1>Edit {{item.name}} from {{restaurant.name}}</h1>
-
       <form action="{{url_for('editMenuItem', restaurant_id = restaurant.id, menu_id = item.id)}}" method="post" enctype="multipart/form-data" class="form">
         <div class="form-group">
           <label for="name">Name</label>
