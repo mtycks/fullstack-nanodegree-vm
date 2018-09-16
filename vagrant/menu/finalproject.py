@@ -11,10 +11,11 @@ session = DBSession()
 
 app = Flask(__name__)
 
+
 @app.route('/')
 @app.route('/restaurants')
 def showRestaurants():
-    restaurants = session.query(Restaurant).all()
+    restaurants = session.query(Restaurant).order_by(Restaurant.name).all()
     session.close()
     return render_template('restaurants.html', restaurants = restaurants)
 

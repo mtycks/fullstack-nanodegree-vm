@@ -13,18 +13,38 @@
 <div class="container">
 
   <div class="row">
-    <div class="col-md-6 offset-md-3">
+    <div class="col-md-8 offset-md-2">
       <h1>{{restaurant.name}}</h1>
 
-      <hr />
 
-      <h3>Menu</h3>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in items %}
+            <tr>
+              <td width="150">{{item.name}}</td>
+              <td>{{item.description}}</td>
+              <td>{{item.price}}</td>
+              <td width="150">
+                <a href="/restaurant/{{restaurant.id}}/menu/{{item.id}}/edit/" class="btn btn-primary btn-sm">Edit</a>
+                <a href="/restaurant/{{restaurant.id}}/menu/{{item.id}}/delete/" class="btn btn-danger btn-sm">Delete</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+
+      </table>
 
       <ul>
 
-        {% for item in items %}
-          <li>{{item.name}}</li>
-        {% endfor %}
+
 
       </ul>
 
