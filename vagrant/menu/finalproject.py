@@ -51,7 +51,8 @@ def newRestaurant():
         # Create the variable to hold the data from the POST
         newRestaurant = Restaurant(name=request.form['name'])
         session.add(newRestaurant)
-        session.commit()
+        flash("{} has been added".format(newRestaurant.name))
+        session.commit()        
         return redirect(url_for('showRestaurants'))
     else:
         return render_template('newRestaurant.html')
@@ -71,6 +72,7 @@ def editRestaurant(restaurant_id):
             restaurant.name = request.form['name']
         session.add(restaurant)
         session.commit()
+        flash("{} successfully edited".format(restaurant.name))
         session.close()
         return redirect(url_for('showRestaurants'))
 
@@ -86,8 +88,8 @@ def deleteRestaurant(restaurant_id):
     if request.method == 'POST':
         session.delete(restaurant)
         session.commit()
+        flash("{} has been deleted".format(restaurant.name))
         session.close()
-
         return redirect(url_for('showRestaurants'))
 
     else:
@@ -124,6 +126,7 @@ def newMenuItem(restaurant_id):
             newItem.course = request.form['course']
         session.add(newItem)
         session.commit()
+        flash("{} has been added".format(newItem.name))
         session.close()
         return redirect(url_for('showMenu', restaurant_id = restaurant_id))
     else:
@@ -151,8 +154,8 @@ def editMenuItem(restaurant_id, menu_id):
             item.course = request.form['course']
         session.add(item)
         session.commit()
-        session.close()
         flash('Menu item has been updated.')
+        session.close()
         return redirect(url_for('showMenu', restaurant_id = restaurant_id ))
 
     else:
@@ -170,6 +173,7 @@ def deleteMenuItem(restaurant_id, menu_id):
         session.delete(item)
         session.commit()
         session.close()
+        flash("{} has been deleted".format(item.name))
         return redirect(url_for('showMenu', restaurant_id = restaurant_id ))
     else:
         return render_template('deleteMenuItem.html', item = item, restaurant = restaurant)
