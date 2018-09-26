@@ -8,6 +8,38 @@ from passlib.apps import custom_app_context as pwd_context
 
 Base = declarative_base()
 
+class User(Base):
+    __tablename__ = 'user'
+
+    id = Column(Integer, primary_key=True)
+    username = Column(String(32), index=True)
+    profile_photo = Column(String)
+    cover_photo = Column(String)
+    email = Column(String)
+    full_name = Column(String)
+    password_hash = Column(String(64))
+    created = Column(DateTime)
+
+    def hash_password(self, password):
+        self.password_hash = pwd_context.encrypt(password)
+
+    def verify_password(self, password):
+        return pwd_context.verify(password, self.password_hash)
+
+    # Serialize function to output JSON for our API
+    @property
+    def serialize(self):
+
+        return {
+            'id': self.id,
+            'username': self.username,
+            'profile_photo': self.profile_photo,
+            'cover_photo': self.cover_photo,
+            'full_name': self.full_name,
+            'email': self.email,
+            'created': self.created
+            }
+
 
 class Category(Base):
     __tablename__ = 'category'
@@ -92,40 +124,5 @@ class WallPhoto(Base):
             }
 
 
-class User(Base):
-    __tablename__ = 'user'
-
-    id = Column(Integer, primary_key=True)
-    username = Column(String(32), index=True)
-    profile_photo = Column(String)
-    cover_photo = Column(String)
-    email = Column(String)
-    full_name = Column(String)
-    password_hash = Column(String(64))
-    created = Column(DateTime)
-
-    def hash_password(self, password):
-        self.password_hash = pwd_context.encrypt(password)
-
-    def verify_password(self, password):
-        return pwd_context.verify(password, self.password_hash)
-
-    # Serialize function to output JSON for our API
-    @property
-    def serialize(self):
-
-        return {
-            'id': self.id,
-            'username': self.username,
-            'profile_photo': self.profile_photo,
-            'cover_photo': self.cover_photo,
-            'full_name': self.full_name,
-            'email': self.email,
-            'created': self.created
-            }
-
-
 engine = create_engine('sqlite:///waldir.db')
-
-
 Base.metadata.create_all(engine)
