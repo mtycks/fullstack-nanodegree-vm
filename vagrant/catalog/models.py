@@ -1,4 +1,6 @@
-from sqlalchemy import Column,Integer,String
+import os
+import sys
+from sqlalchemy import Column,Integer,String,ForeignKey,DateTime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy import create_engine
@@ -14,6 +16,7 @@ class Category(Base):
     title = Column(String, index=True)
     description = Column(String)
     user_id = Column(Integer, ForeignKey('user.id'))
+    user = relationship(User)
     created = Column(DateTime)
     parent = Column(Integer, ForeignKey('category.id'))
 
@@ -38,7 +41,9 @@ class Wall(Base):
     title = Column(String, index=True)
     description = Column(String)
     user_id = Column(Integer, ForeignKey('user.id'))
-    category = Column(Integer, ForeignKey('category.id'))
+    user = relationship(User)
+    cat_id = Column(Integer, ForeignKey('category.id'))
+    category = relationship(Category)
     created = Column(DateTime)
 
     # Serialize function to output JSON for our API
@@ -65,7 +70,9 @@ class WallPhoto(Base):
     description = Column(String)
     caption = Column(String)
     wall_id = Column(Integer, ForeignKey('wall.id'))
+    wall = relationship(Wall)
     user_id = Column(Integer, ForeignKey('user.id'))
+    user = relationship(User)
     created = Column(DateTime)
 
     # Serialize function to output JSON for our API
@@ -118,7 +125,7 @@ class User(Base):
             }
 
 
-engine = create_engine('sqlite:///users.db')
+engine = create_engine('sqlite:///waldir.db')
 
 
 Base.metadata.create_all(engine)
