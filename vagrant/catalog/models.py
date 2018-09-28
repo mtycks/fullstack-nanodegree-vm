@@ -1,3 +1,6 @@
+#!/usr/bin/env python2.7
+"""Python script holding database models"""
+
 import os
 import sys
 from sqlalchemy import Column,Integer,String,ForeignKey,DateTime
