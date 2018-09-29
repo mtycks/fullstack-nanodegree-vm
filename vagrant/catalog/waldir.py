@@ -16,8 +16,39 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 @app.route('/')
-def homepage():
-    return render_template('homepage.html')
+@app.route('/locations/')
+def locations():
+    return render_template('locations.html')
+
+
+@app.route('/locations/<int:cat_id>/')
+def location(cat_id):
+    return render_template('location.html', cat_id = cat_id)
+
+
+@app.route('/locations/add')
+def addLocation():
+    return render_template('location_add.html')
+
+
+@app.route('/locations/<int:cat_id>/edit')
+def editLocation(cat_id):
+    return render_template('location_edit.html', cat_id = cat_id)
+
+
+@app.route('/locations/<int:cat_id>/wall-<int:wall_id>/')
+def wall(cat_id, wall_id):
+    return render_template('wall.html', cat_id = cat_id, wall_id = wall_id)
+
+
+@app.route('/locations/<int:cat_id>/wall/add')
+def addWall(cat_id):
+    return render_template('wall_add.html', cat_id = cat_id)
+
+
+@app.route('/locations/<int:cat_id>/wall-<int:wall_id>/edit')
+def editWall(cat_id, wall_id):
+    return render_template('wall_edit.html', cat_id = cat_id, wall_id = wall_id)
 
 
 
