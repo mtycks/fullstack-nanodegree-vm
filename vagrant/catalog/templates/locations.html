@@ -12,38 +12,46 @@
 
         <div class="row">
 
-          <div class="col-md-6 col-lg-4 mb-4">
-            <div class="card" style="width: 18rem;">
-              <a href="#">
-                <img class="card-img-top" src="https://via.placeholder.com/286x180" alt="Card image cap">
-              </a>
-              <div class="card-body">
-                <h5 class="card-title">Denver</h5>
-              </div>
-            </div>
-          </div>
+          {% if users %}
+          <div class="col-12">
+            <h4>Users</h4>
 
-          <div class="col-md-6 col-lg-4 mb-4">
-            <div class="card" style="width: 18rem;">
-              <a href="#">
-                <img class="card-img-top" src="https://via.placeholder.com/286x180" alt="Card image cap">
-              </a>
-              <div class="card-body">
-                <h5 class="card-title">Los Angeles</h5>
-              </div>
-            </div>
-          </div>
 
-          <div class="col-md-6 col-lg-4 mb-4">
-            <div class="card" style="width: 18rem;">
-              <a href="#">
-                <img class="card-img-top" src="https://via.placeholder.com/286x180" alt="Card image cap">
-              </a>
-              <div class="card-body">
-                <h5 class="card-title">New York</h5>
-              </div>
-            </div>
+            {% for user in users %}
+            <ul>
+              <li>{{user.id}}</li>
+              <li>{{user.full_name}}</li>
+              <li>{{user.username}}</li>
+              <li>{{user.profile_photo}}</li>
+              <li>{{user.cover_photo}}</li>
+              <li>{{user.created}}</li>
+            </ul>
+            {% endfor %}
+
+
           </div>
+          {% endif %}
+
+          {% if categories %}
+            {% for category in categories %}
+              <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card" style="width: 18rem;">
+                  <a href="#">
+                    <img class="card-img-top" src="https://via.placeholder.com/286x180" alt="Card image cap">
+                  </a>
+                  <div class="card-body">
+                    <h5 class="card-title">{{category.title}}</h5>
+                    <ul>
+                      <li>{{category.id}}</li>
+                      <li>{{category.title}}</li>
+                      <li>{{category.description}}</li>
+                      <li>{{category.created}}</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          {% endif %}
 
         </div>
 

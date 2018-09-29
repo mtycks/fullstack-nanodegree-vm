@@ -18,7 +18,10 @@ session = DBSession()
 @app.route('/')
 @app.route('/locations/')
 def locations():
-    return render_template('locations.html')
+    users = session.query(User).all()
+    categories = session.query(Category).all()
+    session.close()
+    return render_template('locations.html', users = users, categories = categories)
 
 
 @app.route('/locations/<int:cat_id>/')
