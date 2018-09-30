@@ -50,6 +50,7 @@ class Category(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String, index=True)
     description = Column(String)
+    image = Column(String)
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
     created = Column(DateTime)

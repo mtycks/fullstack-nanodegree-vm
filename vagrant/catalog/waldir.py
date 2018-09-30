@@ -26,7 +26,10 @@ def locations():
 
 @app.route('/locations/<int:cat_id>/')
 def location(cat_id):
-    return render_template('location.html', cat_id = cat_id)
+    category = session.query(Category).filter_by(id=cat_id).one()
+    categories = session.query(Category.id, Category.title).all()
+    session.close()
+    return render_template('location.html', category = category, categories = categories)
 
 
 @app.route('/locations/add')

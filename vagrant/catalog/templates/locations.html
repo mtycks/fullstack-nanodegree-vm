@@ -12,32 +12,12 @@
 
         <div class="row">
 
-          {% if users %}
-          <div class="col-12">
-            <h4>Users</h4>
-
-
-            {% for user in users %}
-            <ul>
-              <li>{{user.id}}</li>
-              <li>{{user.full_name}}</li>
-              <li>{{user.username}}</li>
-              <li>{{user.profile_photo}}</li>
-              <li>{{user.cover_photo}}</li>
-              <li>{{user.created}}</li>
-            </ul>
-            {% endfor %}
-
-
-          </div>
-          {% endif %}
-
           {% if categories %}
             {% for category in categories %}
               <div class="col-md-6 col-lg-4 mb-4">
                 <div class="card" style="width: 18rem;">
-                  <a href="#">
-                    <img class="card-img-top" src="https://via.placeholder.com/286x180" alt="Card image cap">
+                  <a href="{{url_for('location', cat_id = category.id)}}">
+                    <img class="card-img-top" src="{{category.image}}" alt="{{category.title}} image">
                   </a>
                   <div class="card-body">
                     <h5 class="card-title">{{category.title}}</h5>
@@ -46,6 +26,7 @@
                       <li>{{category.title}}</li>
                       <li>{{category.description}}</li>
                       <li>{{category.created}}</li>
+                      <li>{{category.image}}</li>
                     </ul>
                   </div>
                 </div>
